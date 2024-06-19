@@ -1,0 +1,2907 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+        <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="VariablesxTemplates" EntityType="CatalogService.VariablesxTemplates">
+                    <NavigationPropertyBinding Path="Variable" Target="TrackingVariables"/>
+                    <NavigationPropertyBinding Path="Template" Target="Templates"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="VariablesxTemplates"/>
+                </EntitySet>
+                <EntitySet Name="Templates" EntityType="CatalogService.Templates">
+                    <NavigationPropertyBinding Path="Status" Target="Status"/>
+                    <NavigationPropertyBinding Path="ToVariables" Target="VariablesxTemplates"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Templates"/>
+                </EntitySet>
+                <EntitySet Name="Versions" EntityType="CatalogService.Versions">
+                    <NavigationPropertyBinding Path="Template" Target="Templates"/>
+                </EntitySet>
+                <EntitySet Name="TrackingVariables" EntityType="CatalogService.TrackingVariables">
+                    <NavigationPropertyBinding Path="ToTemplates" Target="VariablesxTemplates"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="TrackingVariables"/>
+                </EntitySet>
+                <EntitySet Name="TypeUnit" EntityType="CatalogService.TypeUnit"/>
+                <EntitySet Name="access" EntityType="CatalogService.access"/>
+                <EntitySet Name="Status" EntityType="CatalogService.Status"/>
+                <EntitySet Name="paises" EntityType="CatalogService.paises">
+                    <NavigationPropertyBinding Path="to_monedas" Target="monedas"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="paises"/>
+                </EntitySet>
+                <EntitySet Name="monedas" EntityType="CatalogService.monedas">
+                    <NavigationPropertyBinding Path="to_paises" Target="paises"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="monedas"/>
+                </EntitySet>
+                <EntitySet Name="finca" EntityType="CatalogService.finca">
+                    <NavigationPropertyBinding Path="ToLimit" Target="Limits"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="finca"/>
+                </EntitySet>
+                <EntitySet Name="Limits" EntityType="CatalogService.Limits">
+                    <NavigationPropertyBinding Path="finca" Target="finca"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Limits"/>
+                </EntitySet>
+                <EntitySet Name="etapas" EntityType="CatalogService.etapas">
+                    <NavigationPropertyBinding Path="to_fases" Target="fases"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="etapas"/>
+                </EntitySet>
+                <EntitySet Name="fases" EntityType="CatalogService.fases">
+                    <NavigationPropertyBinding Path="measure_time" Target="medidas"/>
+                    <NavigationPropertyBinding Path="to_etapas" Target="etapas"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="fases"/>
+                </EntitySet>
+                <EntitySet Name="unidades" EntityType="CatalogService.unidades">
+                    <NavigationPropertyBinding Path="to_medidas" Target="medidas"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="unidades"/>
+                </EntitySet>
+                <EntitySet Name="medidas" EntityType="CatalogService.medidas">
+                    <NavigationPropertyBinding Path="to_unidades" Target="unidades"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="medidas"/>
+                </EntitySet>
+                <EntitySet Name="tipoUnidades" EntityType="CatalogService.tipoUnidades">
+                    <NavigationPropertyBinding Path="TypeUnit" Target="TypeUnit"/>
+                    <NavigationPropertyBinding Path="statu" Target="Status"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="tipoUnidades"/>
+                </EntitySet>
+                <EntitySet Name="viewmonedas" EntityType="CatalogService.viewmonedas"/>
+                <EntitySet Name="viewtipos_medidas" EntityType="CatalogService.viewtipos_medidas"/>
+                <EntitySet Name="time" EntityType="CatalogService.time"/>
+                <EntitySet Name="users" EntityType="CatalogService.users">
+                    <NavigationPropertyBinding Path="type_access" Target="access"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="users"/>
+                </EntitySet>
+                <EntitySet Name="products" EntityType="CatalogService.products">
+                    <NavigationPropertyBinding Path="unitMeasure" Target="medidas"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="products"/>
+                </EntitySet>
+                <ActionImport Name="deleteCoordinates" Action="CatalogService.deleteCoordinates"/>
+                <ActionImport Name="addCoordinates" Action="CatalogService.addCoordinates"/>
+                <ActionImport Name="createCoordinates" Action="CatalogService.createCoordinates"/>
+            </EntityContainer>
+            <EntityType Name="VariablesxTemplates">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="Variable" Type="CatalogService.TrackingVariables" Partner="ToTemplates">
+                    <ReferentialConstraint Property="Variable_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="Variable_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="Template" Type="CatalogService.Templates" Partner="ToVariables">
+                    <ReferentialConstraint Property="Template_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="Template_ID" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.VariablesxTemplates"/>
+            </EntityType>
+            <EntityType Name="Templates">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Template" Type="Edm.String" MaxLength="80"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="255"/>
+                <Property Name="BeginDate" Type="Edm.Date"/>
+                <Property Name="EndDate" Type="Edm.Date" DefaultValue="9999-12-31"/>
+                <Property Name="VariableQuantity" Type="Edm.Int16" DefaultValue="0"/>
+                <Property Name="Version" Type="Edm.String" DefaultValue="1.0.0"/>
+                <NavigationProperty Name="Status" Type="CatalogService.Status">
+                    <ReferentialConstraint Property="Status_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="Status_code" Type="Edm.String" DefaultValue="Activo"/>
+                <NavigationProperty Name="ToVariables" Type="Collection(CatalogService.VariablesxTemplates)" Partner="Template">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Templates"/>
+            </EntityType>
+            <EntityType Name="Versions">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Version" Type="Edm.String" MaxLength="10"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="Template" Type="CatalogService.Templates">
+                    <ReferentialConstraint Property="Template_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="Template_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="TrackingVariables">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Variable" Type="Edm.String" MaxLength="80"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="ToTemplates" Type="Collection(CatalogService.VariablesxTemplates)" Partner="Variable"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.TrackingVariables"/>
+            </EntityType>
+            <EntityType Name="TypeUnit">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="code_type"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="code_type" Type="Edm.String" MaxLength="10" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="access">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="name_access"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name_access" Type="Edm.String" MaxLength="15" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Status">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" Nullable="false" DefaultValue="Activo"/>
+                <Property Name="criticality" Type="Edm.Int32"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="descr" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="paises">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="ISO_2" Type="Edm.String" MaxLength="2"/>
+                <Property Name="ISO_3" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Country_name" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="to_monedas" Type="Collection(CatalogService.monedas)" Partner="to_paises">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.paises"/>
+            </EntityType>
+            <EntityType Name="monedas">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Statu" Type="Edm.String" MaxLength="2"/>
+                <Property Name="selectCurrencies" Type="Edm.Boolean"/>
+                <NavigationProperty Name="to_paises" Type="CatalogService.paises" Partner="to_monedas">
+                    <ReferentialConstraint Property="to_paises_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="to_paises_ID" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.monedas"/>
+            </EntityType>
+            <EntityType Name="finca">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="nombreFinca" Type="Edm.String" MaxLength="40"/>
+                <Property Name="claveFinca" Type="Edm.String" MaxLength="5"/>
+                <Property Name="lat" Type="Edm.Decimal" Scale="18" Precision="20" DefaultValue="10.429184405693888"/>
+                <Property Name="lng" Type="Edm.Decimal" Scale="18" Precision="20" DefaultValue="-66.84094738016441"/>
+                <Property Name="area" Type="Edm.Decimal" Scale="2" Precision="10" DefaultValue="0"/>
+                <Property Name="measure" Type="Edm.String" DefaultValue="m2"/>
+                <Property Name="cantTotalUnidades" Type="Edm.Int32"/>
+                <Property Name="predeterminado" Type="Edm.String" MaxLength="2"/>
+                <Property Name="unit" Type="Edm.String" DefaultValue="unidad(es)"/>
+                <NavigationProperty Name="ToLimit" Type="Collection(CatalogService.Limits)" Partner="finca">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.finca"/>
+            </EntityType>
+            <EntityType Name="Limits">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="lat" Type="Edm.Decimal" Scale="18" Precision="20"/>
+                <Property Name="lng" Type="Edm.Decimal" Scale="18" Precision="20"/>
+                <Property Name="sequence" Type="Edm.Int16"/>
+                <NavigationProperty Name="finca" Type="CatalogService.finca" Partner="ToLimit">
+                    <ReferentialConstraint Property="finca_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="finca_ID" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Limits"/>
+            </EntityType>
+            <EntityType Name="etapas">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="nombre" Type="Edm.String" MaxLength="50"/>
+                <Property Name="claveCultivo" Type="Edm.String" MaxLength="4"/>
+                <Property Name="descripcion" Type="Edm.String" MaxLength="200"/>
+                <Property Name="fasesTotales" Type="Edm.Int32"/>
+                <NavigationProperty Name="to_fases" Type="Collection(CatalogService.fases)" Partner="to_etapas">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.etapas"/>
+            </EntityType>
+            <EntityType Name="fases">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="SecuenciaFases" Type="Edm.Int32"/>
+                <Property Name="nombre" Type="Edm.String" MaxLength="50"/>
+                <Property Name="descripcion" Type="Edm.String" MaxLength="200"/>
+                <Property Name="materiaPrima" Type="Edm.String"/>
+                <Property Name="duracion" Type="Edm.Int32"/>
+                <NavigationProperty Name="measure_time" Type="CatalogService.medidas">
+                    <ReferentialConstraint Property="measure_time_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="measure_time_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="to_etapas" Type="CatalogService.etapas" Partner="to_fases">
+                    <ReferentialConstraint Property="to_etapas_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="to_etapas_ID" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.fases"/>
+            </EntityType>
+            <EntityType Name="unidades">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="unidades" Type="Edm.String" MaxLength="100"/>
+                <Property Name="descripcion" Type="Edm.String" MaxLength="200"/>
+                <NavigationProperty Name="to_medidas" Type="Collection(CatalogService.medidas)" Partner="to_unidades">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.unidades"/>
+            </EntityType>
+            <EntityType Name="medidas">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="medidas" Type="Edm.String" MaxLength="100"/>
+                <Property Name="simbolo" Type="Edm.String" MaxLength="80"/>
+                <NavigationProperty Name="to_unidades" Type="CatalogService.unidades" Partner="to_medidas">
+                    <ReferentialConstraint Property="to_unidades_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="to_unidades_ID" Type="Edm.Guid"/>
+                <Property Name="editable" Type="Edm.Boolean"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.medidas"/>
+            </EntityType>
+            <EntityType Name="tipoUnidades">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="nombre_unidadP" Type="Edm.String" MaxLength="35"/>
+                <NavigationProperty Name="TypeUnit" Type="CatalogService.TypeUnit">
+                    <ReferentialConstraint Property="TypeUnit_ID" ReferencedProperty="ID"/>
+                    <ReferentialConstraint Property="TypeUnit_code_type" ReferencedProperty="code_type"/>
+                </NavigationProperty>
+                <Property Name="TypeUnit_ID" Type="Edm.Guid"/>
+                <Property Name="TypeUnit_code_type" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="statu" Type="CatalogService.Status">
+                    <ReferentialConstraint Property="statu_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="statu_code" Type="Edm.String" DefaultValue="Activo"/>
+                <Property Name="descripcion" Type="Edm.String" MaxLength="100"/>
+                <Property Name="categoria_medida" Type="Edm.String" MaxLength="35"/>
+                <Property Name="tipo_medida" Type="Edm.String" MaxLength="35"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.tipoUnidades"/>
+            </EntityType>
+            <EntityType Name="viewmonedas">
+                <Property Name="Currency" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Code" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <EntityType Name="viewtipos_medidas">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="medidas" Type="Edm.String" MaxLength="100"/>
+                <Property Name="unidades" Type="Edm.String" MaxLength="100"/>
+                <Property Name="simbolo" Type="Edm.String" MaxLength="80"/>
+            </EntityType>
+            <EntityType Name="time">
+                <Property Name="ID" Type="Edm.Guid"/>
+                <Property Name="medidas" Type="Edm.String" MaxLength="100"/>
+                <Property Name="unidades" Type="Edm.String" MaxLength="100"/>
+                <Property Name="simbolo" Type="Edm.String" MaxLength="80"/>
+            </EntityType>
+            <EntityType Name="users">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="image" Type="Edm.Stream"/>
+                <Property Name="name" Type="Edm.String" MaxLength="25"/>
+                <Property Name="last_name" Type="Edm.String" MaxLength="25"/>
+                <NavigationProperty Name="type_access" Type="CatalogService.access">
+                    <ReferentialConstraint Property="type_access_ID" ReferencedProperty="ID"/>
+                    <ReferentialConstraint Property="type_access_name_access" ReferencedProperty="name_access"/>
+                </NavigationProperty>
+                <Property Name="type_access_ID" Type="Edm.Guid"/>
+                <Property Name="type_access_name_access" Type="Edm.String" MaxLength="15"/>
+                <Property Name="user_name" Type="Edm.String" MaxLength="12"/>
+                <Property Name="email" Type="Edm.String" MaxLength="50"/>
+                <Property Name="number_phone" Type="Edm.String" MaxLength="25"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.users"/>
+            </EntityType>
+            <EntityType Name="products">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="product" Type="Edm.String" MaxLength="20"/>
+                <Property Name="description" Type="Edm.String" MaxLength="30"/>
+                <NavigationProperty Name="unitMeasure" Type="CatalogService.medidas">
+                    <ReferentialConstraint Property="unitMeasure_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="unitMeasure_ID" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.products"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <ComplexType Name="param_CatalogService_addCoordinates_Values">
+                <Property Name="lat" Type="Edm.Decimal" Scale="18" Precision="20"/>
+                <Property Name="lng" Type="Edm.Decimal" Scale="18" Precision="20"/>
+                <Property Name="order" Type="Edm.Int16"/>
+            </ComplexType>
+            <ComplexType Name="param_CatalogService_createCoordinates_Values">
+                <Property Name="lat" Type="Edm.Decimal" Scale="18" Precision="20"/>
+                <Property Name="lng" Type="Edm.Decimal" Scale="18" Precision="20"/>
+            </ComplexType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.VariablesxTemplates"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.VariablesxTemplates"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Templates"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Templates"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.TrackingVariables"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.TrackingVariables"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.paises"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.paises"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.monedas"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.monedas"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.finca"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.finca"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Limits"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Limits"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.etapas"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.etapas"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.fases"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.fases"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.unidades"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.unidades"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.medidas"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.medidas"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.tipoUnidades"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.tipoUnidades"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.users"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.users"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.products"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.products"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Templates"/>
+                <ReturnType Type="CatalogService.Templates"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.TrackingVariables"/>
+                <ReturnType Type="CatalogService.TrackingVariables"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.paises"/>
+                <ReturnType Type="CatalogService.paises"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.finca"/>
+                <ReturnType Type="CatalogService.finca"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.etapas"/>
+                <ReturnType Type="CatalogService.etapas"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.unidades"/>
+                <ReturnType Type="CatalogService.unidades"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.tipoUnidades"/>
+                <ReturnType Type="CatalogService.tipoUnidades"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.users"/>
+                <ReturnType Type="CatalogService.users"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.products"/>
+                <ReturnType Type="CatalogService.products"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Templates"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.Templates"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.TrackingVariables"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.TrackingVariables"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.paises"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.paises"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.finca"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.finca"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.etapas"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.etapas"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.unidades"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.unidades"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.tipoUnidades"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.tipoUnidades"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.users"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.users"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.products"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.products"/>
+            </Action>
+            <Action Name="deleteCoordinates" IsBound="false">
+                <Parameter Name="limit_ID" Type="Edm.String"/>
+                <Parameter Name="finca_ID" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Action Name="addCoordinates" IsBound="false">
+                <Parameter Name="finca_ID" Type="Edm.String"/>
+                <Parameter Name="Values" Type="Collection(CatalogService.param_CatalogService_addCoordinates_Values)" Nullable="false"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Action Name="createCoordinates" IsBound="false">
+                <Parameter Name="finca_ID" Type="Edm.String"/>
+                <Parameter Name="Values" Type="Collection(CatalogService.param_CatalogService_createCoordinates_Values)" Nullable="false"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="CatalogService.VariablesxTemplates">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Variable_ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>Variable_ID</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Variable"/>
+                        <PropertyValue Property="TypeNamePlural" String="Tracking Variables"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Template/Template"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Template/Description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Variable_ID"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Variable_ID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/VariablesxTemplates">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Variable_ID</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>Variable_ID</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/Variable">
+                <Annotation Term="Common.Label" String="Variable"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/Variable_ID">
+                <Annotation Term="Common.Text" Path="Variable/Variable">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="TrackingVariables"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Variable_ID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Variable"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Variable"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/Template">
+                <Annotation Term="Common.Label" String="Template"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/Template_ID">
+                <Annotation Term="Common.Text" Path="Template/Template">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Template"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VariablesxTemplates/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>VariableQuantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>VariableQuantity</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Template</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Template"/>
+                        <PropertyValue Property="TypeNamePlural" String="Templates"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Template"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Template"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="VariableQuantity"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BeginDate"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="EndDate"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Version"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Status_code"/>
+                            <PropertyValue Property="Criticality" Path="Status/criticality"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="TemplateDescription">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Template"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Description"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Version"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="TemplateDates">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="BeginDate"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="EndDate"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="TemplateVariables">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="VariableQuantity"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="TemplateStatus">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Status_code"/>
+                                    <PropertyValue Property="Criticality" Path="Status/criticality"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#TemplateDescription"/>
+                                        <PropertyValue Property="Label" String="Template Description"/>
+                                        <PropertyValue Property="ID" String="TemplateDescription"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#TemplateDates"/>
+                                        <PropertyValue Property="Label" String="Document expiration date"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#TemplateVariables"/>
+                                        <PropertyValue Property="Label" String="Association details"/>
+                                    </Record>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#TemplateStatus"/>
+                                        <PropertyValue Property="Label" String="Template Status"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            <PropertyValue Property="Label" String="Template"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="ToVariables/@UI.LineItem"/>
+                            <PropertyValue Property="Label" String="Associated variables"/>
+                            <PropertyValue Property="ID" String="Variables"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Templates">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>VariableQuantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>VariableQuantity</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/ID">
+                <Annotation Term="Common.Text" Path="Template">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/Template">
+                <Annotation Term="Common.Label" String="Template"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/Description">
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/BeginDate">
+                <Annotation Term="Common.Label" String="Begin Date"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/EndDate">
+                <Annotation Term="Common.Label" String="End Date"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/VariableQuantity">
+                <Annotation Term="Common.Label" String="Variable Quantity"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/Version">
+                <Annotation Term="Common.Label" String="Version"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/Status">
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/Status_code">
+                <Annotation Term="Common.Label" String="Status"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Status"/>
+                        <PropertyValue Property="CollectionPath" String="Status"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Status_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Templates/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Versions/Version">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables">
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Variable</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Variable"/>
+                        <PropertyValue Property="TypeNamePlural" String="Variables"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Variable"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Description"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Variable"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Variable"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.Identification"/>
+                                        <PropertyValue Property="Label" String="Tracking Variables"/>
+                                        <PropertyValue Property="ID" String="TrackingVariables"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            <PropertyValue Property="Label" String="General Information"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/TrackingVariables">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/Variable">
+                <Annotation Term="Common.Label" String="Variable"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/Description">
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TrackingVariables/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Status">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Status/code">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Activo"/>
+                            <PropertyValue Property="Value" String="Activo"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Inactivo"/>
+                            <PropertyValue Property="Value" String="Inactivo"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Mantenimiento"/>
+                            <PropertyValue Property="Value" String="Mantenimiento"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Status/name">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Status/descr">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises">
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+                <Annotation Term="UI.CreateHidden" Bool="true"/>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Pais"/>
+                        <PropertyValue Property="TypeNamePlural" String="Paises"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Country_name"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Country_name</PropertyPath>
+                        <PropertyPath>ISO_2</PropertyPath>
+                        <PropertyPath>ISO_3</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Country_name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ISO_2"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ISO_3"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Country_name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ISO_2"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ISO_3"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Pais"/>
+                            <PropertyValue Property="ID" String="PaisFacet"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="to_monedas/@UI.LineItem#LineItemMonedas"/>
+                            <PropertyValue Property="Label" String="Tabla de monedas"/>
+                            <PropertyValue Property="ID" String="MonedasFacet"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/paises">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record Type="Capabilities.FilterExpressionRestrictionType">
+                                    <PropertyValue Property="Property" PropertyPath="Country_name"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+                <Annotation Term="UI.CreateHidden" Bool="true"/>
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/ISO_2">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="paises"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ISO_2"/>
+                                    <PropertyValue Property="ValueListProperty" String="ISO_2"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="false"/>
+                <Annotation Term="Common.Label" String="Codigo ISO 2"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/ISO_3">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="paises"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ISO_3"/>
+                                    <PropertyValue Property="ValueListProperty" String="ISO_3"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="false"/>
+                <Annotation Term="Common.Label" String="Codigo ISO 3"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/Code">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/Country_name">
+                <Annotation Term="Common.Label" String="Nombre del pais"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.paises/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas">
+                <Annotation Term="Common.SideEffects" Qualifier="CodeUpdate">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Currency</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>Code</String>
+                                <String>Currency</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LineItemMonedas">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Currency"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Code"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="selectCurrencies"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/monedas">
+                <Annotation Term="Common.SideEffects" Qualifier="CodeUpdate">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Currency</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>Code</String>
+                                <String>Currency</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/Currency">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="viewmonedas"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="false"/>
+                <Annotation Term="Common.Label" String="Moneda"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/Code">
+                <Annotation Term="Common.Label" String="Codigo de moneda"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/Statu">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/selectCurrencies">
+                <Annotation Term="Common.Label" String="Seleccionar"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.monedas/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Finca"/>
+                        <PropertyValue Property="TypeNamePlural" String="Fincas"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="nombreFinca"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>nombreFinca</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="nombreFinca"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="claveFinca"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="lat"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="lng"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="claveFinca"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="nombreFinca"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="lat"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="lng"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="area"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="predeterminado"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cantTotalUnidades"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Datos de la finca"/>
+                            <PropertyValue Property="ID" String="FincasFacet"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="ToLimit/@UI.LineItem#LimitLineItem"/>
+                            <PropertyValue Property="Label" String="Limites"/>
+                            <PropertyValue Property="ID" String="LimitsFacet"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/finca">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/nombreFinca">
+                <Annotation Term="Common.Label" String="Nombre Finca"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/claveFinca">
+                <Annotation Term="Common.Label" String="Clave finca"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/lat">
+                <Annotation Term="Common.Label" String="Latitud"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/lng">
+                <Annotation Term="Common.Label" String="Longitud"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/area">
+                <Annotation Term="Measures.Unit" Path="measure"/>
+                <Annotation Term="Common.Label" String="Area"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/measure">
+                <Annotation Term="Common.IsUnit" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/cantTotalUnidades">
+                <Annotation Term="Measures.Unit" Path="unit"/>
+                <Annotation Term="Common.Label" String="Cantidad total de unidades"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/predeterminado">
+                <Annotation Term="Common.Label" String="Predeterminado"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/unit">
+                <Annotation Term="Common.IsUnit" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.finca/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>lat</PropertyPath>
+                                <PropertyPath>lng</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>lat</String>
+                                <String>lng</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LimitLineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="lat"/>
+                            <PropertyValue Property="Label" String="Latitud"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="lng"/>
+                            <PropertyValue Property="Label" String="Longitud"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Limits">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>lat</PropertyPath>
+                                <PropertyPath>lng</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>lat</String>
+                                <String>lng</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits/lat">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits/lng">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits/sequence">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Limits/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_fases</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_fases</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Cultivo"/>
+                        <PropertyValue Property="TypeNamePlural" String="Cultivos"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="nombre"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>nombre</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="nombre"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="descripcion"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="fasesTotales"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="claveCultivo"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="nombre"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="descripcion"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="fasesTotales"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="claveCultivo"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Cultivo"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="to_fases/@UI.LineItem"/>
+                            <PropertyValue Property="Label" String="Fases del Cultivo"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/etapas">
+                <Annotation Term="Common.SideEffects">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_fases</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_fases</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/nombre">
+                <Annotation Term="Common.Label" String="Nombre del cultivo"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/claveCultivo">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/descripcion">
+                <Annotation Term="Core.Description" String="true"/>
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Descripcion"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/fasesTotales">
+                <Annotation Term="Common.Label" String="Fases totales"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.etapas/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases">
+                <Annotation Term="Common.SideEffects" Qualifier="Actualizar">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>duracion</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>measure_time_ID</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Fase"/>
+                        <PropertyValue Property="TypeNamePlural" String="Fases"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="nombre"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>nombre</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="SecuenciaFases"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="nombre"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="descripcion"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="materiaPrima"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="duracion"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="measure_time_ID"/>
+                                    <PropertyValue Property="Label" String="Medida de tiempo"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="SecuenciaFases"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="nombre"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="descripcion"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="materiaPrima"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="duracion"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="measure_time_ID"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Detalles de la fase"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/fases">
+                <Annotation Term="Common.SideEffects" Qualifier="Actualizar">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>duracion</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>measure_time_ID</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/SecuenciaFases">
+                <Annotation Term="Common.Label" String="Secuencia"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/nombre">
+                <Annotation Term="Common.Label" String="Nombre de la fase"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/descripcion">
+                <Annotation Term="Common.Label" String="Descripcion"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/materiaPrima">
+                <Annotation Term="Common.Label" String="Materia prima"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/duracion">
+                <Annotation Term="Measures.Unit" Path="measure_time/simbolo"/>
+                <Annotation Term="Common.Label" String="Duracion de la fase"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/measure_time">
+                <Annotation Term="Common.Label" String="Medida de tiempo"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/measure_time_ID">
+                <Annotation Term="Common.IsUnit" Bool="true"/>
+                <Annotation Term="Common.Text" Path="measure_time/simbolo">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="time"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="medidas"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="simbolo"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="measure_time_ID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="false"/>
+                <Annotation Term="Common.Label" String="Medida de tiempo"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.fases/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Categoria"/>
+                        <PropertyValue Property="TypeNamePlural" String="Categorias"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="unidades"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>unidades</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="unidades"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="descripcion"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="unidades"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="descripcion"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Categorias"/>
+                            <PropertyValue Property="ID" String="CategoriasFacet"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="to_medidas/@UI.LineItem#LineItemMedidas"/>
+                            <PropertyValue Property="Label" String="Unidades de medida"/>
+                            <PropertyValue Property="ID" String="UnidadesFacet"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/unidades">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/unidades">
+                <Annotation Term="Common.Label" String="Categoria"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/descripcion">
+                <Annotation Term="Core.Description" String="true"/>
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Descripcion"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/to_medidas">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.unidades/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Medida"/>
+                        <PropertyValue Property="TypeNamePlural" String="Medidas"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="medidas"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="medidas"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="simbolo"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LineItemMedidas">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="medidas"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="simbolo"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/medidas">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/medidas">
+                <Annotation Term="Common.Label" String="Unidad"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/simbolo">
+                <Annotation Term="Common.FieldControl">
+                    <If>
+                        <Eq>
+                            <Path>IsActiveEntity</Path>
+                            <Bool>true</Bool>
+                        </Eq>
+                        <Int>1</Int>
+                        <Int>3</Int>
+                    </If>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Simbolo"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/to_unidades">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/to_unidades_ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.medidas/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades">
+                <Annotation Term="Common.SideEffects" Qualifier="QuantityChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>categoria_medida</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>tipo_medida</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Unidad productiva"/>
+                        <PropertyValue Property="TypeNamePlural" String="Unidades productivas"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="nombre_unidadP"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>TypeUnit_code_type</PropertyPath>
+                        <PropertyPath>nombre_unidadP</PropertyPath>
+                        <PropertyPath>statu_code</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="nombre_unidadP"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="TypeUnit_code_type"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="categoria_medida"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="tipo_medida"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="descripcion"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="statu_code"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="nombre_unidadP"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TypeUnit_code_type"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="categoria_medida"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="tipo_medida"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="statu_code"/>
+                            <PropertyValue Property="Criticality" Path="statu/criticality"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Datos de la unidad productiva"/>
+                            <PropertyValue Property="ID" String="UnitsFacet"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/tipoUnidades">
+                <Annotation Term="Common.SideEffects" Qualifier="QuantityChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>categoria_medida</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>tipo_medida</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/nombre_unidadP">
+                <Annotation Term="Common.Label" String="Nombre de la unidad productiva"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/TypeUnit">
+                <Annotation Term="Common.Label" String="Tipo de unidad productiva"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/TypeUnit_ID">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Tipo de unidad"/>
+                        <PropertyValue Property="CollectionPath" String="TypeUnit"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TypeUnit_code_type"/>
+                                    <PropertyValue Property="ValueListProperty" String="code_type"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Tipo de unidad productiva"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/TypeUnit_code_type">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Tipo de unidad"/>
+                        <PropertyValue Property="CollectionPath" String="TypeUnit"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="TypeUnit_code_type"/>
+                                    <PropertyValue Property="ValueListProperty" String="code_type"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Tipo de unidad productiva"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/statu">
+                <Annotation Term="Common.Label" String="Estatus"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/statu_code">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.Label" String="Estatus"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Estatus"/>
+                        <PropertyValue Property="CollectionPath" String="Status"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="statu_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/descripcion">
+                <Annotation Term="Core.Description" String="true"/>
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Descripcion"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/categoria_medida">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="categoria_medida"/>
+                        <PropertyValue Property="CollectionPath" String="unidades"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="categoria_medida"/>
+                                    <PropertyValue Property="ValueListProperty" String="unidades"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Tipo de Unidad de Medida"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/tipo_medida">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="tipo_medida"/>
+                        <PropertyValue Property="CollectionPath" String="viewtipos_medidas"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="medidas"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="tipo_medida"/>
+                                    <PropertyValue Property="ValueListProperty" String="simbolo"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterIn">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="categoria_medida"/>
+                                    <PropertyValue Property="ValueListProperty" String="unidades"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Unidad de Medida"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.tipoUnidades/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.viewmonedas">
+                <Annotation Term="Common.SideEffects" Qualifier="CodeUpdate">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Currency</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>Code</String>
+                                <String>Currency</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LineItemMonedas">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Currency"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Code"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="selectCurrencies"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/viewmonedas">
+                <Annotation Term="Common.SideEffects" Qualifier="CodeUpdate">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Currency</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>Code</String>
+                                <String>Currency</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.viewmonedas/Currency">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="viewmonedas"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="false"/>
+                <Annotation Term="Common.Label" String="Moneda"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.viewmonedas/Code">
+                <Annotation Term="Common.Label" String="Codigo de moneda"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.viewtipos_medidas">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Medida"/>
+                        <PropertyValue Property="TypeNamePlural" String="Medidas"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="medidas"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="medidas"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="simbolo"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LineItemMedidas">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="medidas"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="simbolo"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.viewtipos_medidas/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.viewtipos_medidas/medidas">
+                <Annotation Term="Common.Label" String="Unidad"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.viewtipos_medidas/unidades">
+                <Annotation Term="Common.Label" String="Categoria"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.viewtipos_medidas/simbolo">
+                <Annotation Term="Common.FieldControl">
+                    <If>
+                        <Eq>
+                            <Path>IsActiveEntity</Path>
+                            <Bool>true</Bool>
+                        </Eq>
+                        <Int>1</Int>
+                        <Int>3</Int>
+                    </If>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Simbolo"/>
+            </Annotations>
+            <Annotations Target="CatalogService.time">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Medida"/>
+                        <PropertyValue Property="TypeNamePlural" String="Medidas"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="medidas"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="medidas"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="simbolo"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="LineItemMedidas">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="medidas"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="simbolo"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.time/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.time/medidas">
+                <Annotation Term="Common.Label" String="Unidad"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.time/unidades">
+                <Annotation Term="Common.Label" String="Categoria"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.time/simbolo">
+                <Annotation Term="Common.FieldControl">
+                    <If>
+                        <Eq>
+                            <Path>IsActiveEntity</Path>
+                            <Bool>true</Bool>
+                        </Eq>
+                        <Int>1</Int>
+                        <Int>3</Int>
+                    </If>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Simbolo"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Usuario"/>
+                        <PropertyValue Property="TypeNamePlural" String="Usuarios"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="name"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Image" Path="image"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>name</PropertyPath>
+                        <PropertyPath>type_access_name_access</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="image"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="last_name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="user_name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="type_access_name_access"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="number_phone"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="email"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="image"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="last_name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="user_name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="type_access_name_access"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="number_phone"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="email"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Datos del usuario"/>
+                            <PropertyValue Property="ID" String="UsersFacet"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/users">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.users/image">
+                <Annotation Term="Core.MediaType" String="image/png"/>
+                <Annotation Term="Common.Label" String="Imagen de usuario"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/name">
+                <Annotation Term="Common.Label" String="Nombre"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/last_name">
+                <Annotation Term="Common.Label" String="Apellido"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/type_access">
+                <Annotation Term="Common.Label" String="Tipo de acceso"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/type_access_ID">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Acceso de usuario"/>
+                        <PropertyValue Property="CollectionPath" String="access"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="type_access_name_access"/>
+                                    <PropertyValue Property="ValueListProperty" String="name_access"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Tipo de acceso"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/type_access_name_access">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Acceso de usuario"/>
+                        <PropertyValue Property="CollectionPath" String="access"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="type_access_name_access"/>
+                                    <PropertyValue Property="ValueListProperty" String="name_access"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Tipo de acceso"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/user_name">
+                <Annotation Term="Common.Label" String="Usuario"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/email">
+                <Annotation Term="Common.Label" String="Email"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/number_phone">
+                <Annotation Term="Common.Label" String="Numero de telefono"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.users/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Producto"/>
+                        <PropertyValue Property="TypeNamePlural" String="Productos"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="product"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>product</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="product"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="description"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="unitMeasure_ID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="product"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="unitMeasure_ID"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup"/>
+                            <PropertyValue Property="Label" String="Datos del producto"/>
+                            <PropertyValue Property="ID" String="ProductsFacet"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/products">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record Type="Capabilities.FilterExpressionRestrictionType">
+                                    <PropertyValue Property="Property" PropertyPath="product"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.products/product">
+                <Annotation Term="Common.Label" String="Nombre de producto"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products/description">
+                <Annotation Term="Core.Description" String="true"/>
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Descripcion"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products/unitMeasure">
+                <Annotation Term="Common.Label" String="Unidad de Medida"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products/unitMeasure_ID">
+                <Annotation Term="Common.Text" Path="unitMeasure/simbolo">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="tipo_medida"/>
+                        <PropertyValue Property="CollectionPath" String="viewtipos_medidas"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="unitMeasure_ID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="medidas"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="simbolo"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Unidad de Medida"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.products/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="Draft Administrative Data"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/DraftUUID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft (Technical ID)"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/CreationDateTime">
+                <Annotation Term="Common.Label" String="Draft Created On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/CreatedByUser">
+                <Annotation Term="Common.Label" String="Draft Created By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsCreatedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft Created By Me"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/LastChangeDateTime">
+                <Annotation Term="Common.Label" String="Draft Last Changed On"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/LastChangedByUser">
+                <Annotation Term="Common.Label" String="Draft Last Changed By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/InProcessByUser">
+                <Annotation Term="Common.Label" String="Draft In Process By"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsProcessedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft In Process By Me"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
